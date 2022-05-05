@@ -1,8 +1,9 @@
 
 from dash import Dash, html, dcc, Input, Output, callback
-from pages import index, vis1, vis2, vis3, vis4, vis5
+from pages import index, vis1, vis2, vis3, vis4, vis5, networktest
 import plotly.express as px
 import pandas as pd
+import networkx as nx
 
 app = Dash(__name__)
 server = app.server
@@ -27,6 +28,8 @@ def display_page(pathname):
         return vis4.layout
     elif pathname == '/vis5':
         return vis5.layout
+    elif pathname == '/networktest':
+        return networktest.layout
     else:
         return '404'
 
