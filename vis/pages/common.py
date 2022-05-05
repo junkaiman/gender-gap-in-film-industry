@@ -3,7 +3,7 @@ from dash import dcc, html, Input, Output, callback
 
 nav = html.Div(
     children=[
-        html.Div(className='bottom-nav',  style={'position': 'absolute', 'bottom': '10rem'},
+        html.Div(className='bottom-nav',
             children=[
                 html.A(id='', className='', children=[
                     html.Button('<', id='button-prev', n_clicks=0)

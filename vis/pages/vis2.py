@@ -10,12 +10,12 @@ layout = html.Div(
                     html.Div(className='four columns div-user-controls',
                             children=[
                                 html.H2('Number of movies'),
-                                html.H2('Fig2: Time River Chart'),
+                                html.H2('Fig2: Co-stardom Network'),
                                 html.P('Visualising time series with Plotly - Dash.'),
                                 html.P('Pick one or more stocks from the dropdown below.'),
                                 html.Div(
                                     children=[
-                                        html.Div(className='bottom-nav', style={'position': 'absolute', 'bottom': '10rem'},
+                                        html.Div(className='bottom-nav',
                                             children=[
                                                 html.A(id='', className='', children=[
                                                     html.Button('<', id='button-prev', n_clicks=0)
