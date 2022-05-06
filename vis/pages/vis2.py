@@ -115,7 +115,7 @@ fig = go.FigureWidget(data=[edge_trace, node_trace],
                 showlegend=False,
                 hovermode='closest',
                 margin=dict(b=20,l=5,r=5,t=40),
-                plot_bgcolor='rgba(0,0,0,0)',
+                plot_bgcolor='black',
                 xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
                 yaxis=dict(showgrid=False, zeroline=False, showticklabels=False), width=float('inf'), height=900)
                 )
