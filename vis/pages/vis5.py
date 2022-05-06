@@ -10,7 +10,7 @@ app = dash.Dash(__name__)
 app.config.suppress_callback_exceptions = True
 
 
-data = pd.read_csv('../data/imdb_all_v2.csv')
+data = pd.read_csv('../data/bubble_chart.csv')
 top500 = data.sort_values('num_votes',ascending=False)[:500]
 top500["rank"] = top500.groupby("year")["differ"].rank("dense", ascending=True)
 
