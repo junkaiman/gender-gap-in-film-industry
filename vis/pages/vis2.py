@@ -110,8 +110,8 @@ node_trace.text = node_text
 
 fig = go.FigureWidget(data=[edge_trace, node_trace],
              layout=go.Layout(
-                title='Movie Star Co-occurences',
-                titlefont_size=16,
+                # title='Movie Star Co-occurences',
+                # titlefont_size=16,
                 showlegend=False,
                 hovermode='closest',
                 margin=dict(b=20,l=5,r=5,t=40),
