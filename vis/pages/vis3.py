@@ -46,15 +46,22 @@ fig = go.Figure()
 for genre in all_genre:
     fig.add_trace(trace_dict[genre])
 
-fig.update_layout(
-    template = 'plotly_dark',
-    xaxis=dict(
-        rangeslider=dict(
+fig.update_layout(template='plotly_dark', paper_bgcolor='rgba(0, 0, 0, 0)',
+        xaxis=dict(rangeslider=dict(
             visible=True
         ),
         type="date"
-    )
-)
+        ),
+        plot_bgcolor='rgba(0, 0, 0, 0)', width=float('inf'), height=900)
+# fig.update_layout(
+#     template = 'plotly_dark',
+#     xaxis=dict(
+#         rangeslider=dict(
+#             visible=True
+#         ),
+#         type="date"
+#     )
+# )
 
 layout = html.Div(
     children=[
@@ -167,15 +174,15 @@ def update_check_box_output(value, value_range):
     for genre in value:
         fig.add_trace(trace_dict[genre])
 
-    fig.update_layout(
-        template = 'plotly_dark',
-        xaxis=dict(
-            rangeslider=dict(
+    fig.update_layout(template='plotly_dark', paper_bgcolor='rgba(0, 0, 0, 0)',
+            xaxis=dict(rangeslider=dict(
                 visible=True
             ),
             type="date"
-        )
-    )
+            ),
+            plot_bgcolor='rgba(0, 0, 0, 0)', width=float('inf'), height=900)
+    # fig.update_layout(template='plotly_dark', paper_bgcolor='rgba(0, 0, 0, 0)',
+    #               plot_bgcolor='rgba(0, 0, 0, 0)')
     return fig
 
 
