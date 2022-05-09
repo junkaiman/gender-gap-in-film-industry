@@ -5,46 +5,104 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 dframe = pd.read_csv('../data/imdb_all_v2.csv')
-df = dframe[(10 <= dframe['star_index']) & (dframe['star_index'] <= 20)]
 
-genre_list = []
-for i in range(len(df)):
+color_hue = ['#f94144', '#f3722c', '#f8961e', '#f9844a', '#f9c74f', '#90be6d', '#43aa8b', '#4d908e', '#577590', '#277da1', 
+'#f94144', '#f3722c', '#f8961e', '#f9844a', '#f9c74f', '#90be6d', '#43aa8b', '#4d908e', '#577590', '#277da1']
+
+female_df = dframe[(15 <= dframe['star_index']) & (dframe['star_index'] <= 20)]
+female_genre_list = []
+for i in range(len(female_df)):
     try:
-        genre_list.append(df.iloc[i]['certificate'].split(','))
+        # genre_list.append(df.iloc[i]['genre'].split(','))
+        female_genre_list.append(female_df.iloc[i]['certificate'].split(','))
     except:
-        genre_list.append(None)
-df['genre_list'] = genre_list
-df = df.explode('genre_list')
-df['genre_list'] = df['genre_list'].apply(lambda x: x.strip() if x != None else x)
-genre_group = df.groupby('genre_list')
+        female_genre_list.append(None)
+female_df['genre_list'] = female_genre_list
+female_df = female_df.explode('genre_list')
+female_df['genre_list'] = female_df['genre_list'].apply(lambda x: x.strip() if x != None else x)
+female_genre_group = female_df.groupby('genre_list')
 
-genres = []
-number = []
-years = []
-for genre in genre_group:
+female_genres = []
+female_number = []
+female_years = []
+for female_genre in female_genre_group:
     # for year_group in genre[1].groupby('year'):
     for i in range(1920, 2022):
-        years.append(i)
-        genres.append(genre[0])
-        number.append(len(genre[1][genre[1]['year'] == i]))
-output = pd.DataFrame(data = [genres, number, years]).T
-output.columns = ['genre', 'count', 'year']
+        female_years.append(i)
+        female_genres.append(female_genre[0])
+        female_number.append(len(female_genre[1][female_genre[1]['year'] == i]))
+female_output = pd.DataFrame(data = [female_genres, female_number, female_years]).T
+female_output.columns = ['genre', 'count', 'year']
 
-trace_dict = {}
-all_genre = output['genre'].unique()
+female_trace_dict = {}
+female_all_genre = female_output['genre'].unique()
 
-for genre in all_genre:
-    trace_dict[genre] = go.Scatter(
-                            x= output['year'], y = output[output['genre'] == genre]['count'],
-                            name = genre,
+for i in range(len(female_all_genre)):
+    female_genre = female_all_genre[i]
+    female_trace_dict[female_genre] = go.Scatter(
+                            x= female_output['year'], y = -female_output[female_output['genre'] == female_genre]['count'],
+                            name = female_genre + ' (female)',
                             mode = 'none', 
-                            stackgroup = 'one', line_shape = 'spline')
+                            fillcolor = color_hue[i],
+                            stackgroup = 'two', line_shape = 'spline')
+
+male_df = dframe[(10 <= dframe['star_index']) & (dframe['star_index'] <= 14)]
+male_genre_list = []
+for i in range(len(male_df)):
+    try:
+        # genre_list.append(df.iloc[i]['genre'].split(','))
+        male_genre_list.append(male_df.iloc[i]['certificate'].split(','))
+    except:
+        male_genre_list.append(None)
+male_df['genre_list'] = male_genre_list
+male_df = male_df.explode('genre_list')
+male_df['genre_list'] = male_df['genre_list'].apply(lambda x: x.strip() if x != None else x)
+male_genre_group = male_df.groupby('genre_list')
+
+male_genres = []
+male_number = []
+male_years = []
+for male_genre in male_genre_group:
+    # for year_group in genre[1].groupby('year'):
+    for i in range(1920, 2022):
+        male_years.append(i)
+        male_genres.append(male_genre[0])
+        male_number.append(len(male_genre[1][male_genre[1]['year'] == i]))
+male_output = pd.DataFrame(data = [male_genres, male_number, male_years]).T
+male_output.columns = ['genre', 'count', 'year']
+
+male_trace_dict = {}
+male_all_genre = male_output['genre'].unique()
+
+for i in range(len(female_all_genre)): #####
+    male_genre = female_all_genre[i]
+    if male_genre != 'Open' and male_genre != 'TV-13':
+        male_trace_dict[male_genre] = go.Scatter(
+                                x= male_output['year'], y = male_output[male_output['genre'] == male_genre]['count'],
+                                name = male_genre + ' (male)',
+                                mode = 'none', 
+                                fillcolor = color_hue[i],
+                                stackgroup = 'one', line_shape = 'spline')
+
+male_list = list(male_output['genre'].unique())
+female_list = list(female_output['genre'].unique())
+
+for i in range(len(male_list)):
+    male_list[i] = male_list[i] + ' (male)'
+
+for i in range(len(female_list)):
+    female_list[i] = female_list[i] + ' (female)'
+
+drop_down_input = male_list + female_list
+
+drop_down_input.sort()
 
 fig = go.Figure()
-# for genre in ['Adventure', 'Action', 'Drama']:
-# for genre in ['R', 'PG-13', 'PG']:
-for genre in all_genre:
-    fig.add_trace(trace_dict[genre])
+for genre in ['R', 'PG-13', 'PG']:
+    fig.add_trace(female_trace_dict[genre])
+
+for genre in ['R', 'PG-13', 'PG']:
+    fig.add_trace(male_trace_dict[genre])
 
 fig.update_layout(template='plotly_dark', paper_bgcolor='rgba(0, 0, 0, 0)',
         xaxis=dict(rangeslider=dict(
@@ -52,7 +110,7 @@ fig.update_layout(template='plotly_dark', paper_bgcolor='rgba(0, 0, 0, 0)',
         ),
         type="date"
         ),
-        plot_bgcolor='rgba(0, 0, 0, 0)', width=float('inf'), height=900)
+        plot_bgcolor='rgba(0, 0, 0, 0)', width=float('inf'), height=800)
 # fig.update_layout(
 #     template = 'plotly_dark',
 #     xaxis=dict(
@@ -87,29 +145,12 @@ layout = html.Div(
                                         )
                                     ]),
                                 dcc.Dropdown(
-                                    output['genre'].unique(),
-                                    # all_genre,
-                                    ['R', 'PG-13', 'PG'], 
+                                    drop_down_input,
+                                    # drop_down_input,
+                                    ['R (male)', 'R (female)', 'PG-13 (male)', 'PG-13 (female)', 'PG (male)', 'PG (female)'], 
                                     multi = True, id = 'my-check-box'
                                     ),
                                 html.Div(style={'margin-top': '30px'}),
-                                dcc.RangeSlider(10, 20, 1, tooltip={"placement": "bottom", "always_visible": False},
-                                    value=[10, 20], id = 'my-range-slider')
-                                # dcc.RangeSlider(1920, 2021, 1, tooltip={"placement": "bottom", "always_visible": False},
-                                #         marks={
-                                #         1920: '1920', 
-                                #         1930: '1930',
-                                #         1940: '1940', 
-                                #         1950: '1950',
-                                #         1960: '1960', 
-                                #         1970: '1970',
-                                #         1980: '1980', 
-                                #         1990: '1990',
-                                #         2000: '2000', 
-                                #         2010: '2010',
-                                #         2020: '2020'
-                                #         },
-                                #     value=[1920, 2021], id = 'year-range-slider')
                                 ]
                             ),
                     html.Div(className='eight columns div-for-charts bg-grey',
@@ -126,53 +167,106 @@ layout = html.Div(
 
 @callback(
     Output('output-check-box', 'figure'),
-    [Input('my-check-box', 'value'),
-     Input('my-range-slider', 'value')
+    [Input('my-check-box', 'value')
+    #  Input('my-range-slider', 'value')
     #  Input('year-range-slider', 'value')
      ])
-def update_check_box_output(value, value_range):
-    df = dframe[(value_range[0] <= dframe['star_index']) & (dframe['star_index'] <= value_range[1])]
-    # df = df[(value_year[0] <= df['year']) & (df['year'] <= value_year[1])]
-    genre_list = []
-    for i in range(len(df)):
-        try:
-            genre_list.append(df.iloc[i]['certificate'].split(','))
-        except:
-            genre_list.append(None)
-    df['genre_list'] = genre_list
-    df = df.explode('genre_list')
-    df['genre_list'] = df['genre_list'].apply(lambda x: x.strip() if x != None else x)
-    genre_group = df.groupby('genre_list')
+def update_check_box_output(value):
+    # color_hue = ['#f94144', '#f3722c', '#f8961e', '#f9844a', '#f9c74f', '#90be6d', '#43aa8b', '#4d908e', '#577590', '#277da1', 
+    # '#f94144', '#f3722c', '#f8961e', '#f9844a', '#f9c74f', '#90be6d', '#43aa8b', '#4d908e', '#577590', '#277da1']
 
-    genres = []
-    number = []
-    years = []
-    for genre in genre_group:
+    female_df = dframe[(15 <= dframe['star_index']) & (dframe['star_index'] <= 20)]
+    female_genre_list = []
+    for i in range(len(female_df)):
+        try:
+            # genre_list.append(df.iloc[i]['genre'].split(','))
+            female_genre_list.append(female_df.iloc[i]['certificate'].split(','))
+        except:
+            female_genre_list.append(None)
+    female_df['genre_list'] = female_genre_list
+    female_df = female_df.explode('genre_list')
+    female_df['genre_list'] = female_df['genre_list'].apply(lambda x: x.strip() if x != None else x)
+    female_genre_group = female_df.groupby('genre_list')
+
+    female_genres = []
+    female_number = []
+    female_years = []
+    for female_genre in female_genre_group:
         # for year_group in genre[1].groupby('year'):
         for i in range(1920, 2022):
-            years.append(i)
-            genres.append(genre[0])
-            number.append(len(genre[1][genre[1]['year'] == i]))
-    output = pd.DataFrame(data = [genres, number, years]).T
-    output.columns = ['genre', 'count', 'year']
+            female_years.append(i)
+            female_genres.append(female_genre[0])
+            female_number.append(len(female_genre[1][female_genre[1]['year'] == i]))
+    female_output = pd.DataFrame(data = [female_genres, female_number, female_years]).T
+    female_output.columns = ['genre', 'count', 'year']
 
-    trace_dict = {}
-    all_genre = output['genre'].unique()
+    female_trace_dict = {}
+    female_all_genre = female_output['genre'].unique()
 
-    for genre in all_genre:
-        trace_dict[genre] = go.Scatter(
-                                x= output['year'], y = output[output['genre'] == genre]['count'],
-                                name = genre,
+    for i in range(len(female_all_genre)):
+        female_genre = female_all_genre[i]
+        female_trace_dict[female_genre] = go.Scatter(
+                                x= female_output['year'], y = -female_output[female_output['genre'] == female_genre]['count'],
+                                name = female_genre + ' (female)',
                                 mode = 'none', 
-                                stackgroup = 'one', line_shape = 'spline')
+                                fillcolor = color_hue[i],
+                                stackgroup = 'two', line_shape = 'spline')
+
+    male_df = dframe[(10 <= dframe['star_index']) & (dframe['star_index'] <= 14)]
+    male_genre_list = []
+    for i in range(len(male_df)):
+        try:
+            # genre_list.append(df.iloc[i]['genre'].split(','))
+            male_genre_list.append(male_df.iloc[i]['certificate'].split(','))
+        except:
+            male_genre_list.append(None)
+    male_df['genre_list'] = male_genre_list
+    male_df = male_df.explode('genre_list')
+    male_df['genre_list'] = male_df['genre_list'].apply(lambda x: x.strip() if x != None else x)
+    male_genre_group = male_df.groupby('genre_list')
+
+    male_genres = []
+    male_number = []
+    male_years = []
+    for male_genre in male_genre_group:
+        # for year_group in genre[1].groupby('year'):
+        for i in range(1920, 2022):
+            male_years.append(i)
+            male_genres.append(male_genre[0])
+            male_number.append(len(male_genre[1][male_genre[1]['year'] == i]))
+    male_output = pd.DataFrame(data = [male_genres, male_number, male_years]).T
+    male_output.columns = ['genre', 'count', 'year']
+
+    male_trace_dict = {}
+    male_all_genre = male_output['genre'].unique()
+
+    for i in range(len(female_all_genre)): #####
+        male_genre = female_all_genre[i]
+        if male_genre != 'Open' and male_genre != 'TV-13':
+            male_trace_dict[male_genre] = go.Scatter(
+                                    x= male_output['year'], y = male_output[male_output['genre'] == male_genre]['count'],
+                                    name = male_genre + ' (male)',
+                                    mode = 'none', 
+                                    fillcolor = color_hue[i],
+                                    stackgroup = 'one', line_shape = 'spline') 
 
     fig = go.Figure()
-    # for genre in ['Adventure', 'Action', 'Drama']:
-    # for genre in ['R', 'PG-13', 'PG']:
-    #     fig.add_trace(trace_dict[genre])
-    # fig = go.Figure()
     for genre in value:
-        fig.add_trace(trace_dict[genre])
+        if '(female)' in genre:
+            fig.add_trace(female_trace_dict[genre.split('(')[0][:-1]])
+
+    for genre in value:
+        if '(male)' in genre and (genre != 'Open (male)') and (genre != 'TV-13 (male)'):
+            fig.add_trace(male_trace_dict[genre.split('(')[0][:-1]])
+
+    fig.update_layout(
+        xaxis=dict(
+            rangeslider=dict(
+                visible=True
+            ),
+            type="date"
+        )
+    )
 
     fig.update_layout(template='plotly_dark', paper_bgcolor='rgba(0, 0, 0, 0)',
             xaxis=dict(rangeslider=dict(
