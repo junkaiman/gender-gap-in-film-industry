@@ -31,7 +31,7 @@ name_id_gender = name_id.join(gender_frame, how = 'outer', on = 'id')
 name_id_gender = name_id_gender.drop_duplicates('name')
 name_id_gender = name_id_gender.set_index('name')
 
-df = dframe[(2010 <= dframe['year']) & (dframe['year'] <= 2020)]
+df = dframe[(1989 <= dframe['year']) & (dframe['year'] <= 2021)]
 df = df.sort_values('num_votes', ascending = False).reset_index(drop = True)
 df = df.iloc[0:100].reset_index(drop = True)
 
@@ -157,7 +157,7 @@ layout = html.Div(
                                         2010: '2010',
                                         2020: '2020'
                                         },
-                                    value=[2010, 2020], id = 'my-range-slider')
+                                    value=[1989, 2021], id = 'my-range-slider')
                                 ]
                             ),
                     html.Div(className='eight columns div-for-charts bg-grey',
