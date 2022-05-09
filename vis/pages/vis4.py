@@ -10,8 +10,8 @@ layout = html.Div(
                     html.Div(className='four columns div-user-controls',
                             children=[
                                 html.H2('Number of movies'),
-                                html.H2('Fig4: Time River Chart'),
-                                html.P('Visualising time series with Plotly - Dash.'),
+                                html.H2('Fig4: Word Cloud'),
+                                html.P('Visualizing time series with Plotly - Dash.'),
                                 html.P('Pick one or more stocks from the dropdown below.'),
                                 html.Div(
                                     children=[
@@ -30,6 +30,10 @@ layout = html.Div(
                             ),
                     html.Div(className='eight columns div-for-charts bg-grey',
                             children=[
+                                html.Div(style={'margin-top': '2rem'}),
+                                html.Iframe(src="./assets/male_word.html", style={'height': '40%'}),
+                                html.Div(style={'margin-top': '2rem'}),
+                                html.Iframe(src="./assets/female_word.html", style={'height': '40%'}, ),
                                 # dcc.Graph(id='timeseries',
                                 #     config={'displayModeBar': False},
                                 #     animate=True),

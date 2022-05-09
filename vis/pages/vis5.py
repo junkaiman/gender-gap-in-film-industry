@@ -51,7 +51,7 @@ fig.add_trace(go.Scatter(
 fig.update_layout(title="Aggregated film preferences for both male and female audience",
                   title_font_size=20, template='plotly_dark', paper_bgcolor='rgba(0, 0, 0, 0)',
                   plot_bgcolor='rgba(0, 0, 0, 0)',
-                  width=1000, height=450)
+                  width=float('inf'), height=400)
 fig.update_xaxes(title_text='Year',
                  title_font=dict(size=15, family='Verdana',
                                  color='purple'),
@@ -99,7 +99,7 @@ fig2.add_trace(go.Scatter(
 fig2.update_layout(title="Difference in film preferences between male and female audience",
                    title_font_size=20, template='plotly_dark', paper_bgcolor='rgba(0, 0, 0, 0)',
                    plot_bgcolor='rgba(0, 0, 0, 0)',
-                   width=1000, height=450)
+                   width=float('inf'), height=400)
 fig2.update_xaxes(title_text='Year',
                   title_font=dict(size=15, family='Verdana',
                                   color='purple'),

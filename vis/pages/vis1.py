@@ -141,7 +141,7 @@ def make_ribbon_arc(theta0, theta1):
             'the angle coordinates for an arc side of a ribbon must be in [0, 2*pi]')
 
 
-def make_layout(title, plot_size):
+def make_layout(plot_size, title):
     axis = dict(showline=False,  # hide axis line, grid, ticklabels and  title
                 zeroline=False,
                 showgrid=False,
@@ -149,19 +149,22 @@ def make_layout(title, plot_size):
                 title=''
                 )
 
-    return go.Layout(title=dict(
-        text=title, font=dict(
-            family='Droid',
-            size=20)),
+    return go.Layout(
+        title=dict(
+            text=title, font=dict(
+                family='Droid',
+                size=20)),
         xaxis=dict(axis),
         yaxis=dict(axis),
+        legend=dict(
+            orientation="h"),
         showlegend=True,
-        width=plot_size+75,
+        width=plot_size,
         template='plotly_dark',
         paper_bgcolor='rgba(0, 0, 0, 0)',
         plot_bgcolor='rgba(0, 0, 0, 0)',
-        height=plot_size,
-        margin=dict(t=25, b=25, l=25, r=25),
+        height=plot_size+150,
+        margin=dict(t=40, b=25, l=25, r=25),
         hovermode='closest'  # to this list one appends below the dicts defining the ribbon,
         # respectively the ideogram shapes
     )
@@ -227,22 +230,22 @@ def invPerm(perm):
     return inv
 
 
-def chord_by_year(year, master, gender):
+def chord_by_year(year, master, gender, title):
     data = master[master['year'].isin(year)]
     data["genre"] = data["genre"].str.split()
     data2 = data.explode('genre')
     data2['genre'] = data2['genre'].apply(move_particle)
     genre_list = data2.groupby('genre')['title'].count(
     ).sort_values(ascending=False)[:10].index.tolist()
-    data3 = data2[data2['genre'].isin(genre_list)]
+    data2_1 = data2[data2['genre'].isin(genre_list)]
+    if gender == 'male':
+        data3 = data2_1[data2_1['star_index'] < 15]
+    else:
+        data3 = data2_1[data2_1['star_index'] >= 15]
     s = pd.crosstab(data3['title'], data3['genre'])
     s = s.T.dot(s).astype(float)
     s.values[np.triu_indices(len(s))] = np.nan
     films_intersection = s.stack()
-    if gender == 'male':
-        data3 = data3[data3['star_index'] < 15]
-    else:
-        data3 = data3[data3['star_index'] >= 15]
     number_of_genres = len(data3['genre'].unique())
     genre_matrix = np.zeros((number_of_genres, number_of_genres))
 
@@ -287,7 +290,7 @@ def chord_by_year(year, master, gender):
     ribbon_ends = make_ribbon_ends(mapped_data, ideo_ends,  idx_sort)
     # print('ribbon ends starting from the ideogram[2]\n', ribbon_ends[2])
     ribbon_color = [L*[ideo_colors[k]] for k in range(L)]
-    layout = make_layout('Chord diagram of genres', 800)
+    layout = make_layout(450, title)
     radii_sribb = [0.4, 0.30, 0.35, 0.39, 0.12]
     ribbon_info = []
 
@@ -397,9 +400,15 @@ def chord_by_year(year, master, gender):
 
 
 year = list(range(1920, 2022))
-ideograms, ribbon_info, layout = chord_by_year(year, master, 'male')
+ideograms, ribbon_info, layout = chord_by_year(
+    year, master, 'male', 'Male Chord')
 data = go.Data(ideograms+ribbon_info)
 fig = go.Figure(data=data, layout=layout)
+
+ideograms2, ribbon_info2, layout2 = chord_by_year(
+    year, master, 'female', 'Male Chord')
+data2 = go.Data(ideograms2+ribbon_info2)
+fig2 = go.Figure(data=data2, layout=layout2)
 
 
 layout = html.Div(
@@ -447,12 +456,19 @@ layout = html.Div(
                                              )
                               ]
                               ),
-                     html.Div(className='eight columns div-for-charts bg-grey',
+                     html.Div(className='eight columns div-for-charts bg-grey chord-diagrams',
                               children=[
                                   dcc.Graph(
                                       id='output_slider',
                                       animate=True,
                                       config={'displayModeBar': False},
+                                      figure=fig
+                                  ),
+                                  dcc.Graph(
+                                      id='output_slider_2',
+                                      animate=True,
+                                      config={'displayModeBar': False},
+                                      figure=fig2
                                   )
                               ])
                      # html.Div(id = 'output-check-box')
@@ -462,15 +478,24 @@ layout = html.Div(
 
 
 @callback(
-    Output('output_slider', 'figure'),
-    Input('my-slider', 'value'))
+    [Output('output_slider', 'figure'),
+     Output('output_slider_2', 'figure')],
+    [Input('my-slider', 'value')])
 def update_output(value):
     if value == 2010:
         year = list(range(2010, 2022))
+    elif value == 1950:
+        year = list(range(1970, 1981))
     else:
         year = list(range(value, value+11))
-    ideograms, ribbon_info, layout = chord_by_year(year, master, 'male')
+    ideograms, ribbon_info, layout = chord_by_year(
+        year, master, 'male', 'Male Chord')
     data = go.Data(ideograms+ribbon_info)
     fig = go.Figure(data=data, layout=layout)
 
-    return fig
+    ideograms2, ribbon_info2, layout2 = chord_by_year(
+        year, master, 'female', 'Female Chord')
+    data2 = go.Data(ideograms2+ribbon_info2)
+    fig2 = go.Figure(data=data2, layout=layout2)
+
+    return fig, fig2
