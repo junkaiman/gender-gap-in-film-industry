@@ -1,9 +1,8 @@
 from dash import dcc, html, Input, Output, callback, Dash
 import pandas as pd
 import plotly.express as px
-# from pages.common import nav
 import plotly.figure_factory as ff
-import plotly.graph_objs as go
+import plotly.graph_objects as go
 import numpy as np
 
 
@@ -158,9 +157,9 @@ def make_layout(title, plot_size):
         yaxis=dict(axis),
         showlegend=True,
         width=plot_size+75,
-        template='plotly_white',
-        #  paper_bgcolor='#FFFFFF	',
-        plot_bgcolor='#FFFFFF',
+        template='plotly_dark',
+        paper_bgcolor='rgba(0, 0, 0, 0)',
+        plot_bgcolor='rgba(0, 0, 0, 0)',
         height=plot_size,
         margin=dict(t=25, b=25, l=25, r=25),
         hovermode='closest'  # to this list one appends below the dicts defining the ribbon,
@@ -410,7 +409,7 @@ layout = html.Div(
                      html.Div(className='four columns div-user-controls',
                               children=[
                                   html.H2('Number of movies'),
-                                  html.H2('Fig3: Time River Chart'),
+                                  html.H2('Fig1: Chord Diagram Chart'),
                                   html.P(
                                       'Visualising time series with Plotly - Dash.'),
                                   html.P(
@@ -430,8 +429,20 @@ layout = html.Div(
                                                    ]
                                                    )
                                       ]),
-                                  dcc.Slider(1920, 2022, 10,
-                                             value=10,
+                                  dcc.Slider(1920, 2010, 10,
+                                             value=2010,
+                                             marks={
+                                                 1920: '1920',
+                                                 1930: '1930',
+                                                 1940: '1940',
+                                                 1950: '1950',
+                                                 1960: '1960',
+                                                 1970: '1970',
+                                                 1980: '1980',
+                                                 1990: '1990',
+                                                 2000: '2000',
+                                                 2010: '2010'
+                                             },
                                              id='my-slider'
                                              )
                               ]
