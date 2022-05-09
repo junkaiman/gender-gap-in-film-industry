@@ -30,8 +30,8 @@ layout = html.Div(
                               children=[
                                   html.H1('Gender Gap in',
                                           className='index-title'),
-                                  html.H1('Film Industry 🎞', style={
-                                        'background-color': '#E0AE0A'}, className='index-title'),
+                                  html.H1('Film Industry', style={
+                                        'background-color': '#E0AE0A', 'max-width': '40%'}, className='index-title'),
                                   html.H1('over the Past', style={},
                                           className='index-title'),
                                   html.H1('100 Years', style={},
