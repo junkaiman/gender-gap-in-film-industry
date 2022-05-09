@@ -65,7 +65,7 @@ for edge in G.edges():
 
 edge_trace = go.Scatter(
     x=edge_x, y=edge_y,
-    line=dict(width=0.3, color='#888'),
+    line=dict(width=0.6, color='#777'),
     hoverinfo='none',
     mode='lines')
 
@@ -218,7 +218,7 @@ def update_output(value):
 
     edge_trace = go.Scatter(
         x=edge_x, y=edge_y,
-        line=dict(width=0.5, color='#888'),
+        line=dict(width=1, color='#777'),
         hoverinfo='none',
         mode='lines')
 

@@ -681,3 +681,9 @@ iframe {
   border-width: 0;
   border-style: unset;
 }
+
+.chord-diagrams {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

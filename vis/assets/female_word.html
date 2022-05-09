@@ -59,7 +59,9 @@
         var width = $(document).width() - 30;
         var height = $(document).height() - 30;
 
-        var fill = d3.scale.category20();
+        female_colors = ['#da627d', '#8c2f39', '#b23a48', '#fcb9b2', '#fed0bb'];
+        // var fill = d3.scale.category20();
+        var fill = d3.scale.ordinal().range(female_colors);
 
         var word_entries = d3.entries(word_count2);
 
