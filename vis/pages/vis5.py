@@ -71,13 +71,13 @@ fig.update_layout(title="Aggregated film preferences for both male and female au
                   width=float('inf'), height=400)
 fig.update_xaxes(title_text='Year', range=(top500['year'].min()-1, 2022),
                  title_font=dict(size=15, family='Verdana',
-                                 color='purple'),
-                 tickfont=dict(family='Calibri', color='black',
+                                 color='white'),
+                 tickfont=dict(family='Calibri', color='white',
                                size=10))
 fig.update_yaxes(title_text="Count", range=(0, top500['rank'].max()+1),
                  title_font=dict(size=15, family='Verdana',
-                                 color='orange'),
-                 tickfont=dict(family='Calibri', color='black',
+                                 color='white'),
+                 tickfont=dict(family='Calibri', color='white',
                                size=10))
 
 hover_text2 = []
@@ -119,13 +119,13 @@ fig2.update_layout(title="Difference in film preferences between male and female
                    width=float('inf'), height=400)
 fig2.update_xaxes(title_text='Year', range=(top500['year'].min()-1, 2022),
                   title_font=dict(size=15, family='Verdana',
-                                  color='purple'),
-                  tickfont=dict(family='Calibri', color='black',
+                                  color='white'),
+                  tickfont=dict(family='Calibri', color='white',
                                 size=10))
 fig2.update_yaxes(title_text="Count", range=(0, top500['rank'].max()+1),
                   title_font=dict(size=15, family='Verdana',
-                                  color='orange'),
-                  tickfont=dict(family='Calibri', color='black',
+                                  color='white'),
+                  tickfont=dict(family='Calibri', color='white',
                                 size=10))
 
 hover_text3 = []
@@ -167,13 +167,13 @@ fig3.update_layout(title="Aggregated film preferences for both male and female a
                    width=float('inf'), height=400)
 fig3.update_xaxes(title_text='Year', range=(top200_2['year'].min()-1, 2001),
                   title_font=dict(size=15, family='Verdana',
-                                  color='purple'),
-                  tickfont=dict(family='Calibri', color='black',
+                                  color='white'),
+                  tickfont=dict(family='Calibri', color='white',
                                 size=10))
 fig3.update_yaxes(title_text="Count", range=(0, top200_2['rank'].max()+1),
                   title_font=dict(size=15, family='Verdana',
-                                  color='orange'),
-                  tickfont=dict(family='Calibri', color='black',
+                                  color='white'),
+                  tickfont=dict(family='Calibri', color='white',
                                 size=10))
 
 hover_text4 = []
@@ -215,13 +215,13 @@ fig4.update_layout(title="Difference in film preferences between male and female
                    width=float('inf'), height=400)
 fig4.update_xaxes(title_text='Year', range=(top200_2['year'].min()-1, 2001),
                   title_font=dict(size=15, family='Verdana',
-                                  color='purple'),
-                  tickfont=dict(family='Calibri', color='black',
+                                  color='white'),
+                  tickfont=dict(family='Calibri', color='white',
                                 size=10))
 fig4.update_yaxes(title_text="Count", range=(0, top200_2['rank'].max()+1),
                   title_font=dict(size=15, family='Verdana',
-                                  color='orange'),
-                  tickfont=dict(family='Calibri', color='black',
+                                  color='white'),
+                  tickfont=dict(family='Calibri', color='white',
                                 size=10))
 
 hover_text5 = []
@@ -263,13 +263,13 @@ fig5.update_layout(title="Aggregated film preferences for both male and female a
                    width=float('inf'), height=400)
 fig5.update_xaxes(title_text='Year', range=(1999, 2022),
                   title_font=dict(size=15, family='Verdana',
-                                  color='purple'),
-                  tickfont=dict(family='Calibri', color='black',
+                                  color='white'),
+                  tickfont=dict(family='Calibri', color='white',
                                 size=10))
 fig5.update_yaxes(title_text="Count", range=(0, top200_3['rank'].max()+1),
                   title_font=dict(size=15, family='Verdana',
-                                  color='orange'),
-                  tickfont=dict(family='Calibri', color='black',
+                                  color='white'),
+                  tickfont=dict(family='Calibri', color='white',
                                 size=10))
 
 hover_text6 = []
@@ -311,13 +311,13 @@ fig6.update_layout(title="Difference in film preferences between male and female
                    width=float('inf'), height=400)
 fig6.update_xaxes(title_text='Year', range=(1999, 2022),
                   title_font=dict(size=15, family='Verdana',
-                                  color='purple'),
-                  tickfont=dict(family='Calibri', color='black',
+                                  color='white'),
+                  tickfont=dict(family='Calibri', color='white',
                                 size=10))
 fig6.update_yaxes(title_text="Count", range=(0, top200_3['rank'].max()+1),
                   title_font=dict(size=15, family='Verdana',
-                                  color='orange'),
-                  tickfont=dict(family='Calibri', color='black',
+                                  color='white'),
+                  tickfont=dict(family='Calibri', color='white',
                                 size=10))
 
 bubblechart1 = fig
