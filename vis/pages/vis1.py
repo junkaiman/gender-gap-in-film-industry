@@ -235,8 +235,8 @@ def chord_by_year(year, master, gender, title):
     data["genre"] = data["genre"].str.split()
     data2 = data.explode('genre')
     data2['genre'] = data2['genre'].apply(move_particle)
-    genre_list = data2[data2['star_index'] >= 15].groupby('genre')['title'].count(
-    ).sort_values(ascending=False)[:10].index.tolist()
+    genre_list = data2.groupby('genre')['title'].count(
+    ).sort_values(ascending=False)[:9].index.tolist()
     data2_1 = data2[data2['genre'].isin(genre_list)]
     if gender == 'male':
         data3 = data2_1[data2_1['star_index'] < 15]
@@ -246,7 +246,7 @@ def chord_by_year(year, master, gender, title):
     s = s.T.dot(s).astype(float)
     s.values[np.triu_indices(len(s))] = np.nan
     films_intersection = s.stack()
-    number_of_genres = len(data3['genre'].unique())
+    number_of_genres = 9
     genre_matrix = np.zeros((number_of_genres, number_of_genres))
 
     for i, v in films_intersection.iteritems():
@@ -406,7 +406,7 @@ data = go.Data(ideograms+ribbon_info)
 fig = go.Figure(data=data, layout=layout)
 
 ideograms2, ribbon_info2, layout2 = chord_by_year(
-    year, master, 'female', 'Male Chord')
+    year, master, 'female', 'Female Chord')
 data2 = go.Data(ideograms2+ribbon_info2)
 fig2 = go.Figure(data=data2, layout=layout2)
 
@@ -460,13 +460,13 @@ layout = html.Div(
                               children=[
                                   dcc.Graph(
                                       id='output_slider',
-                                      animate=True,
+                                      animate=False,
                                       config={'displayModeBar': False},
                                       figure=fig
                                   ),
                                   dcc.Graph(
                                       id='output_slider_2',
-                                      animate=True,
+                                      animate=False,
                                       config={'displayModeBar': False},
                                       figure=fig2
                                   )
@@ -484,10 +484,13 @@ layout = html.Div(
 def update_output(value):
     if value == 2010:
         year = list(range(2010, 2022))
+    elif value == 1940:
+        year = list(range(1935, 1946))
     elif value == 1950:
-        year = list(range(1970, 1981))
+        year = list(range(1955, 1966))
     else:
         year = list(range(value, value+11))
+
     ideograms, ribbon_info, layout = chord_by_year(
         year, master, 'male', 'Male Chord')
     data = go.Data(ideograms+ribbon_info)
