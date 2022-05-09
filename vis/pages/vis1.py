@@ -235,7 +235,7 @@ def chord_by_year(year, master, gender, title):
     data["genre"] = data["genre"].str.split()
     data2 = data.explode('genre')
     data2['genre'] = data2['genre'].apply(move_particle)
-    genre_list = data2.groupby('genre')['title'].count(
+    genre_list = data2[data2['star_index'] >= 15].groupby('genre')['title'].count(
     ).sort_values(ascending=False)[:10].index.tolist()
     data2_1 = data2[data2['genre'].isin(genre_list)]
     if gender == 'male':
@@ -399,7 +399,7 @@ def chord_by_year(year, master, gender, title):
     return(ideograms, ribbon_info, layout)
 
 
-year = list(range(1920, 2022))
+year = list(range(2010, 2022))
 ideograms, ribbon_info, layout = chord_by_year(
     year, master, 'male', 'Male Chord')
 data = go.Data(ideograms+ribbon_info)
