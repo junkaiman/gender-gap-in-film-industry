@@ -159,12 +159,12 @@ def make_layout(plot_size, title):
         legend=dict(
             orientation="h"),
         showlegend=True,
-        width=plot_size+100,
+        width=plot_size,
         template='plotly_dark',
         paper_bgcolor='rgba(0, 0, 0, 0)',
         plot_bgcolor='rgba(0, 0, 0, 0)',
-        height=plot_size,
-        margin=dict(t=25, b=25, l=25, r=25),
+        height=plot_size+150,
+        margin=dict(t=40, b=25, l=25, r=25),
         hovermode='closest'  # to this list one appends below the dicts defining the ribbon,
         # respectively the ideogram shapes
     )
@@ -290,7 +290,7 @@ def chord_by_year(year, master, gender, title):
     ribbon_ends = make_ribbon_ends(mapped_data, ideo_ends,  idx_sort)
     # print('ribbon ends starting from the ideogram[2]\n', ribbon_ends[2])
     ribbon_color = [L*[ideo_colors[k]] for k in range(L)]
-    layout = make_layout(400, title)
+    layout = make_layout(450, title)
     radii_sribb = [0.4, 0.30, 0.35, 0.39, 0.12]
     ribbon_info = []
 
@@ -456,7 +456,7 @@ layout = html.Div(
                                              )
                               ]
                               ),
-                     html.Div(className='eight columns div-for-charts bg-grey',
+                     html.Div(className='eight columns div-for-charts bg-grey chord-diagrams',
                               children=[
                                   dcc.Graph(
                                       id='output_slider',
