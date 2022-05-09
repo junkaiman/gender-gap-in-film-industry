@@ -269,21 +269,15 @@ def chord_by_year(year, master, gender, title):
     # print(ideo_ends)
     z = make_ideogram_arc(1.3, [11*PI/6, PI/17])
     # print(z)
-    ideo_colors = ['rgba(187, 255, 255, 0.75)',
-                   'rgba(127, 255, 212, 0.75)',
-                   'rgba(155, 205, 155, 0.75)',
-                   'rgba(217, 239, 139, 0.75)',
-                   'rgba(255, 246, 143, 0.75)',
-                   'rgba(255, 193, 193, 0.75)',
-                   'rgba(255, 130, 71, 0.75)',
-                   'rgba(255, 48, 48, 0.75)',
-                   'rgba(255, 20, 147, 0.75)',
-                   'rgba(72, 118, 255, 0.75)',
-                   'rgba(176, 226, 255, 0.75)',
-                   'rgba(224, 255, 255, 0.75)',
-                   'rgba(144, 238, 144, 0.75)',
-                   'rgba(106, 90, 205, 0.75)',
-                   'rgba(47, 79, 79, 0.75)']  # brewe
+    ideo_colors = ['#ffadad',
+                   '#ffd6a5',
+                   '#fdffb6',
+                   '#caffbf',
+                   '#9bf6ff',
+                   '#a0c4ff',
+                   '#bdb2ff',
+                   '#ffc6ff',
+                   '#fffffc']  # brewe
 
     mapped_data = map_data(L, genre_matrix, row_sum, ideogram_length)
     idx_sort = np.argsort(mapped_data, axis=1)

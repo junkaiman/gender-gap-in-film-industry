@@ -16,6 +16,7 @@ def transform(x):
 
 data = pd.read_csv('../data/bubble_chart.csv')
 data['differ'] = data['differ'].apply(transform)
+data['all'] = data['all'].apply(transform)
 
 top500 = data.sort_values('num_votes', ascending=False)[:500]
 top500["rank"] = top500.groupby("year")["differ"].rank("dense", ascending=True)
@@ -36,11 +37,11 @@ hover_text = []
 for index, row in top500.iterrows():
     hover_text.append(('Title: {title}<br>' +
                       'Number of Votes: {vote}<br>' +
-                       'Difference: {rate}<br>' +
+                       'Rate: {rate}<br>' +
                        'Certificate: {cert}<br>' +
                        'Year: {year}').format(title=row['title'],
                                               vote=row['num_votes'],
-                                              rate=row['differ'],
+                                              rate=row['all'],
                                               cert=row['certificate'],
                                               year=row['year']))
 colorline = top500['all']
@@ -132,11 +133,11 @@ hover_text3 = []
 for index, row in top200_2.iterrows():
     hover_text3.append(('Title: {title}<br>' +
                         'Number of Votes: {vote}<br>' +
-                       'Difference: {rate}<br>' +
+                       'Rate: {rate}<br>' +
                         'Certificate: {cert}<br>' +
                         'Year: {year}').format(title=row['title'],
                                                vote=row['num_votes'],
-                                               rate=row['differ'],
+                                               rate=row['all'],
                                                cert=row['certificate'],
                                                year=row['year']))
 colorline = top200_2['all']
@@ -228,11 +229,11 @@ hover_text5 = []
 for index, row in top200_3.iterrows():
     hover_text5.append(('Title: {title}<br>' +
                         'Number of Votes: {vote}<br>' +
-                       'Difference: {rate}<br>' +
+                       'Rate: {rate}<br>' +
                         'Certificate: {cert}<br>' +
                         'Year: {year}').format(title=row['title'],
                                                vote=row['num_votes'],
-                                               rate=row['differ'],
+                                               rate=row['all'],
                                                cert=row['certificate'],
                                                year=row['year']))
 colorline = top200_3['all']
