@@ -180,7 +180,7 @@ def update_check_box_output(value, value_range):
             ),
             type="date"
             ),
-            plot_bgcolor='rgba(0, 0, 0, 0)', width=float('inf'), height=900)
+            plot_bgcolor='rgba(0, 0, 0, 0)', width=float('inf'), height=800)
     # fig.update_layout(template='plotly_dark', paper_bgcolor='rgba(0, 0, 0, 0)',
     #               plot_bgcolor='rgba(0, 0, 0, 0)')
     return fig
