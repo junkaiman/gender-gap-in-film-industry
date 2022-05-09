@@ -218,7 +218,7 @@ def update_output(value):
 
     edge_trace = go.Scatter(
         x=edge_x, y=edge_y,
-        line=dict(width=0.3, color='#888'),
+        line=dict(width=0.5, color='#888'),
         hoverinfo='none',
         mode='lines')
 
@@ -236,7 +236,13 @@ def update_output(value):
     for node, adjacencies in enumerate(G.adjacency()):
         node_adjacencies.append(len(adjacencies[1]))
         try:
-            node_gender.append(name_id_gender.loc[adjacencies[0]]['gender'])
+            if name_id_gender.loc[adjacencies[0]]['gender'] == 1: # MALE
+                node_gender.append('#9cccf9')
+                # node_gender.append('#51a5d6')
+            else:
+                node_gender.append('#e9909d')
+                # node_gender.append('#e73643')
+            # node_gender.append(name_id_gender.loc[adjacencies[0]]['gender'])
 
         except:
             node_gender.append(None)
@@ -247,8 +253,8 @@ def update_output(value):
         mode='markers',
         hoverinfo='text',
         marker=dict(
-            showscale=False,
-            colorscale='Bluered',
+            # showscale=True,
+            # colorscale='Bluered',
             color = node_gender,
             opacity = 0.9,
             size = node_adjacencies,
@@ -263,6 +269,10 @@ def update_output(value):
         fig.data[1].text = node_trace.text
         fig.data[1].x = node_trace.x
         fig.data[1].y = node_trace.y
+    
+    fig.update_layout(template='plotly_dark', paper_bgcolor='rgba(0, 0, 0, 0)',
+                  plot_bgcolor='rgba(0, 0, 0, 0)')
+    
     return fig
 
 # if __name__ == '__main__':
