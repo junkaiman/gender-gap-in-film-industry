@@ -676,3 +676,8 @@ Taken from https://codepen.io/chriddyp/pen/bWLwgP.css
   opacity: 10%;
   z-index: -1;
 }
+
+iframe {
+  border-width: 0;
+  border-style: unset;
+}

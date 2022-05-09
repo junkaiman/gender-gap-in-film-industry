@@ -2,7 +2,7 @@
   <head>
     <script src="jquery.min.js"></script>
     <script src="d3.min.js"></script>
-    <script src="cloud.js"></script>
+    <script src="cloud_male.js"></script>
   </head>
   <body>
     <div id="chart"></div>
@@ -44,8 +44,8 @@
         }
 
         var svg_location = "#chart";
-        var width = $(document).width();
-        var height = $(document).height();
+        var width = $(document).width() - 30;
+        var height = $(document).height() - 30;
 
         var fill = d3.scale.category20();
 
