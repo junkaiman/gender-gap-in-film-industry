@@ -3,7 +3,7 @@ from dash import dcc, html, Input, Output, callback
 import plotly.graph_objects as go
 import pandas as pd
 import plotly.express as px
-from pages.common import nav
+from pages import common
 
 # Initialize the app
 app = dash.Dash(__name__)
@@ -332,12 +332,13 @@ layout = html.Div(
                  children=[
                      html.Div(className='four columns div-user-controls',
                               children=[
-                                  html.H2('Number of movies'),
-                                  html.H2('Fig5: Bubble Chart'),
+                                #   html.H2('Number of movies'),
+                                  html.H2('Fig5: Audience Preferences Bubble Chart'),
+                                #   html.P(
+                                    #   'Visualising time series with Plotly - Dash.'),
                                   html.P(
-                                      'Visualising time series with Plotly - Dash.'),
-                                  html.P(
-                                      'Pick one or more stocks from the dropdown below.'),
+                                      'We use the bubble charts to visualize the overall ratings and differences in ratings between males and females for the Top 500 Voted Movies. We noticed that compared to the time before 2000, female audiences have an equal or even higher weight in determining popularity of movies. The gap also indicates that taste of between male and female are becoming higher as well.'),
+                                  html.Div(style={'margin-top': '20px'}),
                                   html.Div(
                                       children=[
                                           html.Div(className='bottom-nav',
@@ -345,11 +346,11 @@ layout = html.Div(
                                                        html.A(id='', className='', children=[
                                                            html.Button(
                                                              '<', id='button-prev', n_clicks=0)
-                                                       ], href='/vis4', style={'margin-right': '2rem'}),
+                                                       ], href=common.base_url+'/vis4', style={'margin-right': '2rem'}),
                                                        html.A(id='', className='', children=[
                                                            html.Button(
                                                               '>', id='button-next', n_clicks=0),
-                                                       ], href='/vis5'),
+                                                       ], href=common.base_url+'/vis5'),
                                                    ]
                                                    )
                                       ]),

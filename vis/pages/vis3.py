@@ -3,6 +3,7 @@ import pandas as pd
 import plotly.express as px
 # from pages.common import nav
 import plotly.graph_objects as go
+from pages import common
 
 dframe = pd.read_csv('../data/imdb_all_v2.csv')
 
@@ -127,20 +128,20 @@ layout = html.Div(
                 children=[
                     html.Div(className='four columns div-user-controls',
                             children=[
-                                html.H2('Number of movies'),
-                                html.H2('Fig3: Time River Chart'),
-                                html.P('Visualising time series with Plotly - Dash.'),
-                                html.P('Pick one or more stocks from the dropdown below.'),
+                                # html.H2('Number of movies'),
+                                html.H2('Fig3: Movie Theme River'),
+                                # html.P('Visualising time series with Plotly - Dash.'),
+                                html.P('We make a theme river for the ratings (PG-13, R, etc.) of the movies in the IMDB database. Then we  use a theme river to visualize the two groups w.r.t. their ratings. The area above the x-axis is the data of actor-dominated movies, and vice-versa. We can see that in recent years, the gap between the two types of movies are decreasing (they are shifting downward). '),
                                 html.Div(
                                     children=[
                                         html.Div(className='bottom-nav',
                                             children=[
                                                 html.A(id='', className='', children=[
                                                     html.Button('<', id='button-prev', n_clicks=0)
-                                                ], href='/vis2', style={'margin-right': '2rem'}),
+                                                ], href=common.base_url+ '/vis2', style={'margin-right': '2rem'}),
                                                 html.A(id='', className='', children=[
                                                     html.Button('>', id='button-next', n_clicks=0),
-                                                ], href='/vis4'),
+                                                ], href=common.base_url+'/vis4'),
                                             ]
                                         )
                                     ]),

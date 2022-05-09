@@ -2,8 +2,8 @@ from pydoc import classname
 from dash import dcc, html, Input, Output, callback
 import pandas as pd
 import plotly.express as px
+from pages import common
 from pages.common import nav
-
 # layout = html.Div([
 #     html.H3('Page 1'),
 #     dcc.Dropdown(
@@ -42,15 +42,21 @@ layout = html.Div(
                               ]
                               ),
                      html.Div(className='five columns div-user-controls', children=[
-                         html.P('Lorem Ipsum is simply dummy text of the \
-                        printing and typesetting industry. Lorem Ipsum has been \
-                        the industrys standard dummy text ever since the 1500s, when \
-                        an unknown printer took a galley of type and scrambled it to make \
-                        a type specimen book. It has survived not only five centuries, \
-                        but also the leap into electronic typesetting, remaining essentially \
-                        unchanged. It was popularised in the 1960s with the release of Letraset \
-                        sheets containing Lorem Ipsum passages, and more recently with desktop \
-                        publishing software like Aldus PageMaker including versions of Lorem Ipsum.', className='index-description'),
+                         html.P("Male and female, both in the movie casts and audience," \
+                            "make up the colorful and epic motion picture industry that" \
+                            "thrives for over 100 years. However, what we cannot neglect is" \
+                            "that the two genders generally play very different roles both in" \
+                            "the supply and demand levels. Thus, we want to investigate the" \
+                            "gender gap in the movie industry in the past 100 years. ", className='index-description')
+                    #      html.P('Lorem Ipsum is simply dummy text of the \
+                    #     printing and typesetting industry. Lorem Ipsum has been \
+                    #     the industrys standard dummy text ever since the 1500s, when \
+                    #     an unknown printer took a galley of type and scrambled it to make \
+                    #     a type specimen book. It has survived not only five centuries, \
+                    #     but also the leap into electronic typesetting, remaining essentially \
+                    #     unchanged. It was popularised in the 1960s with the release of Letraset \
+                    #     sheets containing Lorem Ipsum passages, and more recently with desktop \
+                    #     publishing software like Aldus PageMaker including versions of Lorem Ipsum.', className='index-description'),
                      ]),
                      html.Div(className='four columns div-user-controls index-author-container',
                               children=[
@@ -68,7 +74,7 @@ layout = html.Div(
             nav,
         ]),
         html.Div(id='', className='', children=[
-            html.Img(src='/assets/poster.jpeg', className='poster-img'),
+            html.Img(src=common.base_url+'/assets/poster.jpeg', className='poster-img'),
         ])
     ]
 )

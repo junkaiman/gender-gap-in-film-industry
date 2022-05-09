@@ -2,7 +2,7 @@ from dash import Dash, dcc, html, Input, Output, callback
 import pandas as pd
 import plotly.graph_objects as go
 import networkx as nx
-# from pages.common import nav
+from pages import common
 
 # app = Dash(__name__)
 
@@ -126,20 +126,21 @@ layout = html.Div(
                 children=[
                     html.Div(className='four columns div-user-controls',
                             children=[
-                                html.H2('Number of movies'),
+                                # html.H2('Number of movies'),
                                 html.H2('Fig2: Co-stardom Network'),
-                                html.P('Visualising time series with Plotly - Dash.'),
-                                html.P('Pick one or more stocks from the dropdown below.'),
+                                # html.P('Visualising time series with Plotly - Dash.'),
+                                html.P('We calculated the co-occurrence of stars in popular movies, We would like to investigate their cooperation patterns and how actors and actresses make up that network. The blue nodes represent actors, while the red nodes represent actresses. The size of the node represents the number of co-occurrences of the actor/actress, and the edges represent their cooperation relationships. We can also choose arbitrary intervals to see the corresponding network. The data source of the network shown here is from 1989 to 2021, and we can see clearly that actors make up the skeletons of the graph. However, especially in recent years, the importance of actresses in the network is increasing.'),
+                                html.Div(style={'margin-top': '20px'}),
                                 html.Div(
                                     children=[
                                         html.Div(className='bottom-nav',
                                             children=[
                                                 html.A(id='', className='', children=[
                                                     html.Button('<', id='button-prev', n_clicks=0)
-                                                ], href='/vis1', style={'margin-right': '2rem'}),
+                                                ], href=common.base_url+'/vis1', style={'margin-right': '2rem'}),
                                                 html.A(id='', className='', children=[
                                                     html.Button('>', id='button-next', n_clicks=0),
-                                                ], href='/vis3'),
+                                                ], href=common.base_url+'/vis3'),
                                             ]
                                         )
                                     ]),

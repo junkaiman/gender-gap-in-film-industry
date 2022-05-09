@@ -4,7 +4,7 @@ import plotly.express as px
 import plotly.figure_factory as ff
 import plotly.graph_objects as go
 import numpy as np
-
+from pages import common
 
 master = pd.read_csv('../data/bubble_chart.csv')
 
@@ -411,12 +411,13 @@ layout = html.Div(
                  children=[
                      html.Div(className='four columns div-user-controls',
                               children=[
-                                  html.H2('Number of movies'),
-                                  html.H2('Fig1: Chord Diagram Chart'),
+                                #   html.H2('Number of movies'),
+                                  html.H2('Fig1: Genre Chord Diagram'),
+                                #   html.P(
+                                #       'Visualising time series with Plotly - Dash.'),
                                   html.P(
-                                      'Visualising time series with Plotly - Dash.'),
-                                  html.P(
-                                      'Pick one or more stocks from the dropdown below.'),
+                                      'We make two chord diagrams to show how actor-dominant and actress-dominant movies would differ in genres across time.  From the visualization result over time, we figured out that years ago actresses   mostly only dominate in romance and drama movies while  action, crime and advatages are dominant by actors. Compared to previous time, the gaps are narrowed down: actress-dominant movies tend to resemple the constitution of actor-dominant ones more and more. Bias towards genres are gradually eliminated.'),
+                                  html.Div(style={'margin-top': '20px'}),
                                   html.Div(
                                       children=[
                                           html.Div(className='bottom-nav',
@@ -424,11 +425,11 @@ layout = html.Div(
                                                        html.A(id='', className='', children=[
                                                            html.Button(
                                                              '<', id='button-prev', n_clicks=0)
-                                                       ], href='/', style={'margin-right': '2rem'}),
+                                                       ], href=common.base_url+'/', style={'margin-right': '2rem'}),
                                                        html.A(id='', className='', children=[
                                                            html.Button(
                                                               '>', id='button-next', n_clicks=0),
-                                                       ], href='/vis2'),
+                                                       ], href=common.base_url+'/vis2'),
                                                    ]
                                                    )
                                       ]),

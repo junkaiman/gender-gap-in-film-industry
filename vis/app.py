@@ -1,11 +1,11 @@
 
 from dash import Dash, html, dcc, Input, Output, callback
-from pages import index, vis1, vis2, vis3, vis4, vis5, networktest
+from pages import index, vis1, vis2, vis3, vis4, vis5, networktest, common
 import plotly.express as px
 import pandas as pd
 import networkx as nx
 
-app = Dash(__name__, suppress_callback_exceptions=True)
+app = Dash(__name__, suppress_callback_exceptions=True, url_base_pathname=common.base_url+'/')
 server = app.server
 
 app.layout = html.Div([
@@ -16,6 +16,7 @@ app.layout = html.Div([
 @callback(Output('page-content', 'children'),
               Input('url', 'pathname'))
 def display_page(pathname):
+    pathname = pathname[len(common.base_url):]
     if pathname == '/':
         return index.layout
     elif pathname == '/vis1':
@@ -28,10 +29,10 @@ def display_page(pathname):
         return vis4.layout
     elif pathname == '/vis5':
         return vis5.layout
-    elif pathname == '/networktest':
-        return networktest.layout
+    # elif pathname == '/networktest':
+        # return networktest.layout
     else:
         return '404'
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=False)
