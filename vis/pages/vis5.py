@@ -61,7 +61,7 @@ fig.add_trace(go.Scatter(
                         font=dict(size=12)
                     )
                 ),
-                colorscale='greens',
+                colorscale='YlOrBr',
                 opacity=0.8, size=top500['num_votes'],
                 sizemode='area', sizeref=sizeref,
                 sizemin=4, showscale=True
@@ -157,7 +157,7 @@ fig3.add_trace(go.Scatter(
                         font=dict(size=12)
                     )
                 ),
-                colorscale='greens',
+                colorscale='YlOrBr',
                 opacity=0.8, size=top200_2['num_votes'],
                 sizemode='area', sizeref=sizeref,
                 sizemin=4, showscale=True
@@ -253,7 +253,7 @@ fig5.add_trace(go.Scatter(
                         font=dict(size=12)
                     )
                 ),
-                colorscale='greens',
+                colorscale='YlOrBr',
                 opacity=0.8, size=top200_3['num_votes'],
                 sizemode='area', sizeref=sizeref,
                 sizemin=4, showscale=True
