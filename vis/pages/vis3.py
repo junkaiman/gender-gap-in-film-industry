@@ -4,11 +4,16 @@ import plotly.express as px
 # from pages.common import nav
 import plotly.graph_objects as go
 from pages import common
+import random 
 
 dframe = pd.read_csv('../data/imdb_all_v2.csv')
 
+# color_hue = ['#f94144', '#f3722c', '#f8961e', '#f9844a', '#f9c74f', '#90be6d', '#43aa8b', '#4d908e', '#577590', '#277da1', 
+# '#f94144', '#f3722c', '#f8961e', '#f9844a', '#f9c74f', '#90be6d', '#43aa8b', '#4d908e', '#577590', '#277da1']
+# i = 2
+# color_hue = color_hue[i:] + color_hue[:i]
 color_hue = ['#f94144', '#f3722c', '#f8961e', '#f9844a', '#f9c74f', '#90be6d', '#43aa8b', '#4d908e', '#577590', '#277da1', 
-'#f94144', '#f3722c', '#f8961e', '#f9844a', '#f9c74f', '#90be6d', '#43aa8b', '#4d908e', '#577590', '#277da1']
+'#f3722c', '#f94144', '#f8961e', '#f9844a', '#f9c74f', '#90be6d', '#43aa8b', '#4d908e', '#577590', '#277da1']
 
 female_df = dframe[(15 <= dframe['star_index']) & (dframe['star_index'] <= 20)]
 female_genre_list = []

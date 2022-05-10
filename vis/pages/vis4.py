@@ -32,9 +32,9 @@ layout = html.Div(
                             ),
                     html.Div(className='eight columns div-for-charts bg-grey',
                             children=[
-                                html.Div(style={'margin-top': '2rem'}),
+                                html.Div(style={'margin-top': '5rem'}),
                                 html.Iframe(src="./assets/male_word.html", style={'height': '40%'}),
-                                html.Div(style={'margin-top': '2rem'}),
+                                html.Div(style={'margin-top': '4rem'}),
                                 html.Iframe(src="./assets/female_word.html", style={'height': '40%'}, ),
                                 # dcc.Graph(id='timeseries',
                                 #     config={'displayModeBar': False},
